@@ -1,27 +1,35 @@
-import { toast } from "react-toastify";
-import useCart from "../../../hooks/useCart";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useMenu from "../../../hooks/useMenu";
+import Swal from "sweetalert2";
 
-const MyCart = () => {
-  const [cart, refetch] = useCart();
-  const total = cart.reduce((sum, item) => item.price + sum, 0);
-  const handleDelete = (items) => {
-    fetch(`http://localhost:5000/carts/${items._id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          refetch();
-          toast("Data deleted");
-        }
-      });
+const ManageItem = () => {
+  const [menu, refetch] = useMenu();
+  const [axiosSecure] = useAxiosSecure();
+
+  const handleDelete = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/menus/${item._id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            refetch();
+          }
+        });
+      }
+    });
   };
   return (
     <div className=" m-8">
       <div className=" items-center uppercase flex justify-between font-semibold">
-        <p>Totatl Items: {cart.length} </p>
-        <p className="">Total Price : $ {total}</p>
-        <button className="btn btn-warning">Pay</button>
+        <p>Totatl Items: {menu.length} </p>
       </div>
       <div className="">
         <div className="overflow-x-auto ">
@@ -37,7 +45,7 @@ const MyCart = () => {
               </tr>
             </thead>
             <tbody>
-              {cart.map((items, index) => (
+              {menu.map((items, index) => (
                 <>
                   {" "}
                   <tr key={items._id}>
@@ -57,6 +65,8 @@ const MyCart = () => {
                     <td>{items.name}</td>
                     <td>{items.price}</td>
                     <th>
+                      {/* The button to open modal */}
+
                       <button
                         className="btn btn-error btn-xs"
                         onClick={() => handleDelete(items)}
@@ -76,4 +86,4 @@ const MyCart = () => {
   );
 };
 
-export default MyCart;
+export default ManageItem;

@@ -11,13 +11,13 @@ import useAdmin from "../hooks/useAdmin";
 const DashBoardLayout = () => {
   const [cart] = useCart();
   // const isAdmin = true;
-  const [adminData] = useAdmin();
+  const [isAdmin] = useAdmin();
   return (
     <>
       <div className="my_container">
         <div className="drawer drawer-mobile ">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex flex-col items-center justify-center">
+          <div className="drawer-content ">
             <Outlet></Outlet>
             <label
               htmlFor="my-drawer-2"
@@ -27,7 +27,6 @@ const DashBoardLayout = () => {
             </label>
           </div>
           <div className="drawer-side bg-[#D1A054]">
-            <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
             <Link to="/" className="btn btn-ghost   font-[Cinzel] uppercase ">
               {" "}
               <h2 className="text-2xl ">
@@ -36,8 +35,9 @@ const DashBoardLayout = () => {
                 Restaurant
               </h2>
             </Link>
-            <ul className="menu p-4 w-80  my-3">
-              {adminData ? (
+
+            <ul className="menu px-4 w-80  mb-3">
+              {isAdmin ? (
                 <>
                   {" "}
                   <li>
@@ -56,7 +56,7 @@ const DashBoardLayout = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/dashboard/manage-items">
+                    <NavLink to="/dashboard/manage-booking">
                       <FaWallet></FaWallet> Manage booking
                     </NavLink>
                   </li>

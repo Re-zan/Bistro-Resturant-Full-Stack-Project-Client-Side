@@ -22,8 +22,8 @@ const Testimonial = () => {
       >
         {testimonial.map((data) => (
           <>
-            <SwiperSlide>
-              <TestimonialData key={data._id} testData={data}></TestimonialData>
+            <SwiperSlide key={data._id}>
+              <TestimonialData testData={data}></TestimonialData>
             </SwiperSlide>
           </>
         ))}

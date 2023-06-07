@@ -13,7 +13,7 @@ const Alluser = () => {
       .catch(() => {});
   };
   return (
-    <div>
+    <div className=" w-full mx-auto">
       <div className=" uppercas font-semibold text-4xl">
         <p>Totatl user: {user.length} </p>
       </div>
