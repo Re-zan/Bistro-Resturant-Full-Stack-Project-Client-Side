@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import useCart from "../../../hooks/useCart";
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const [cart, refetch] = useCart();
@@ -21,7 +22,10 @@ const MyCart = () => {
       <div className=" items-center uppercase flex justify-between font-semibold">
         <p>Totatl Items: {cart.length} </p>
         <p className="">Total Price : $ {total}</p>
-        <button className="btn btn-warning">Pay</button>
+        <Link to="/dashboard/reservations">
+          {" "}
+          <button className="btn btn-warning">Pay</button>
+        </Link>
       </div>
       <div className="">
         <div className="overflow-x-auto ">

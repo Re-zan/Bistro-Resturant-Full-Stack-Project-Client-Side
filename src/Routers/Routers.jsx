@@ -14,6 +14,7 @@ import AddItem from "../Pages/DashBoard/AddItem/AddItem";
 import ManageItem from "../Pages/DashBoard/ManageItem/ManageItem";
 import AdminRoute from "./AdminRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import Payment from "../Pages/DashBoard/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
             <ManageItem></ManageItem>
           </AdminPrivateRoute>
         ),
+      },
+      {
+        path: "reservations",
+        element: <Payment></Payment>,
       },
     ],
   },
